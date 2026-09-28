@@ -178,16 +178,19 @@ function ssActual(){
 function initMap(){
   const any=Object.values(DATA.rutas)[0];
   map=L.map('map',{scrollWheelZoom:false}).setView([any.lat[0],any.lon[0]],12);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    {attribution:'© OpenStreetMap · CARTO',maxZoom:19}).addTo(map);
+  const base=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    {attribution:'Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors',maxZoom:19,maxNativeZoom:16}).addTo(map);
+  // etiquetas (calles/lugares) encima del base
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+    {maxZoom:19,maxNativeZoom:16,pane:'shadowPane'}).addTo(map);
+  // fallback a OSM si Esri falla
+  base.on('tileerror',()=>{
+    if(map._osmFallback) return; map._osmFallback=true;
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
+  });
   capaRuta=L.layerGroup().addTo(map);
   capa=L.layerGroup().addTo(map);
-}
-function hexVerts(lat,lon,rM){
-  const mLat=111132,mLon=111320*Math.cos(lat*Math.PI/180),v=[];
-  for(let i=0;i<6;i++){const a=Math.PI/180*(60*i);
-    v.push([lat+(rM*Math.sin(a))/mLat,lon+(rM*Math.cos(a))/mLon]);}
-  return v;
 }
 
 function render(){
