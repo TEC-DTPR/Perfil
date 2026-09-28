@@ -178,7 +178,7 @@ function ssActual(){
 function initMap(){
   const any=Object.values(DATA.rutas)[0];
   map=L.map('map',{scrollWheelZoom:false}).setView([any.lat[0],any.lon[0]],12);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
     {attribution:'© OpenStreetMap · CARTO',maxZoom:19}).addTo(map);
   capaRuta=L.layerGroup().addTo(map);
   capa=L.layerGroup().addTo(map);
