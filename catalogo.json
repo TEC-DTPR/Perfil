@@ -2,7 +2,7 @@
   "ciudades": {
     "copiapo":      { "nombre": "Copiapó",      "meses": ["2026-09"] },
     "temuco":       { "nombre": "Temuco",       "meses": ["2026-09", "2026-10"] },
-    "coquimbo":     { "nombre": "Coquimbo",     "meses": ["2026-09"] },
+    "coquimbo":     { "nombre": "Coquimbo",     "meses": ["2026-09", "2026-10", "2026-11"] },
     "punta_arenas": { "nombre": "Punta Arenas", "meses": ["2026-09"] }
   }
 }
